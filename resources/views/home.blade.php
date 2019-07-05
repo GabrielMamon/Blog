@@ -105,7 +105,7 @@
                 <div class="recent">
                 <h5>Recent Post/s</h5>
                 <hr>
-                @foreach ($posts as $object)
+                @foreach ($recent as $object)
                     @if (strlen($object->title)>20)
                         {!! substr($object->title,0,20) !!} [...] - {{ $object->created }} <br>
                     @else
