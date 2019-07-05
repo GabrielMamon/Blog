@@ -1,0 +1,22 @@
+.post-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: black;
+}
+
+.post-title:hover {
+  text-decoration: none;
+}
+
+.post-categorydate {
+  font-size: 14px;
+}
+
+.card-content {
+  font-size: 16px;
+}
+
+.recent {
+  padding-top: 10px;
+}
+/*# sourceMappingURL=styles.css.map */
