@@ -7,11 +7,11 @@
 @section('content')
 <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @foreach ($post as $item)
 
 
-                <h5>{{$item->title}}</h5>
+                <h2>{{$item->title}}</h2>
                 <hr>
                   <img src="{{ asset('images/'.$item->imagepath.'') }}">
                 <hr>
