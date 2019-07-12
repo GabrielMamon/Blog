@@ -2,7 +2,10 @@
 @section('title')
     {{$title}}
 @endsection
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+@section('cdnlink')
 
+@endsection
 
 @section('content')
 <div class="container">
@@ -23,13 +26,23 @@
                         <br>
                         <input type="text" class="form-control" name="InputPostCategory" id="InputPostCategory" placeholder="Category" maxlength="15" required>
                         <br>
-                        <textarea name="InputPostContent" class="form-control" required></textarea>
+                        <textarea id="textContent" name="InputPostContent" class="form-control" required></textarea>
                         <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
             </div>
         </div>
 </div>
+@endsection
+@section('cdnscripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+<script>
+$(document).ready(function() {
+    $('#textContent').summernote({
+        height: 300,   //set editable area's height
+    });
+});
+</script>
 @endsection
 
 

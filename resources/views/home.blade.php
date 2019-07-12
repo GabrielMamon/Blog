@@ -29,9 +29,10 @@
             <div class="row justify-content-center">
 
                 @if(count($posts) > 0)
-
+                @php
+                   $p = 0;
+                @endphp
                 @foreach ($posts as $object)
-
                 <div class="card my-1">
                     <div class="card-body">
                         <div class="row">
@@ -55,14 +56,9 @@
                             </div>
 
                             <div class="col-md-8 col-sm-6 ">
-                                <div class="row px-1">
+                                <div id="content-{{$p}}" class="row px-1">
                                 <p class="card-text card-content" style="margin-top:10px">
-                                    @if (strlen($object->content)>200)
-                                        {!! substr($object->content,0,200) !!} [...]
-                                    @else
                                         {!! $object->content !!}
-                                    @endif
-
                                 </p>
                                 </div>
                                 <div class="row pt-3">
@@ -86,7 +82,9 @@
 
                     </div>
                 </div>
-
+                @php
+                    $p++;
+                @endphp
                 @endforeach
                 @else
 
@@ -119,6 +117,16 @@
     </div>
 </div>
 <script>
+    $(document).ready(function(){
+        let count = {{ count($posts) }};
+        for (let index = 0; index < count; index++) {
+            const text = $('#content-'+index).text();
+
+            $('#content-'+index).html(text.substring(0,300)+"[...]");
+
+        }
+
+    });
     $(function () {
                 $('#deletePop').on('show.bs.modal', function (event) {
                     let button = $(event.relatedTarget);
@@ -129,6 +137,7 @@
                     modal.find('.modal-body').text('Are you sure to delete '+title+'?');
                     modal.find('.delete').attr('href','/delete/'+slug)
                 });
+
     });
 
 </script>

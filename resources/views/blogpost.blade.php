@@ -16,7 +16,7 @@
                   <img src="{{ asset('images/'.$item->imagepath.'') }}">
                 <hr>
                 <p>
-                    {{$item->content}}
+                    {!!$item->content!!}
                 </p>
 
                 @endforeach
