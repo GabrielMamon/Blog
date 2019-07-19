@@ -33,7 +33,6 @@ class HomeController extends Controller
 
     public function blogpost($postID){
         $postcontent = $this->showPost($postID);
-
         //dd($postcontent);
         return view('blogpost')->with('post',$postcontent)->with('title',$postcontent[0]->title);
     }
@@ -43,7 +42,7 @@ class HomeController extends Controller
         $posts = DB::table('post')
             ->join('users','users.id','=','post.author')
             ->selectRaw('users.name ,post.id,post.title,post.title_slugged, post.imagepath,post.content,post.category,DATE_FORMAT(DATE(post.created_at),\'%b %e %Y\') AS created')
-            ->get();
+            ->paginate(3);
 
         return $posts;
     }

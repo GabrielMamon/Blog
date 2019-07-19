@@ -86,6 +86,7 @@
                     $p++;
                 @endphp
                 @endforeach
+                <?php echo $posts->render(); ?>
                 @else
 
                 <h4>Nothing is posted here...</h4>
