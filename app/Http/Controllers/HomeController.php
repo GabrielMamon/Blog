@@ -32,9 +32,16 @@ class HomeController extends Controller
     }
 
     public function blogpost($postID){
+        //get content
         $postcontent = $this->showPost($postID);
-        //dd($postcontent);
-        return view('blogpost')->with('post',$postcontent)->with('title',$postcontent[0]->title);
+         //get comments
+        $postcomments = $this->getcomments($postID);
+
+
+        return view('blogpost')->with('post',$postcontent)
+                               ->with('title',$postcontent[0]->title)
+                               ->with('title_slug',$postcontent[0]->title_slugged)
+                               ->with('comments',$postcomments);
     }
 
     public function getpost(){
@@ -67,7 +74,20 @@ class HomeController extends Controller
             ->where('post.title_slugged','=',$postID)
             ->get();
             //dd(DB::getQueryLog());
-            return $posts;
+        return $posts;
+    }
+
+    public function getcomments($postID){
+        //DB::enableQueryLog();
+        $comment = DB::table('comment')
+        ->join('users','users.id','=','comment.user_id')
+        ->join('post','post.title_slugged','=','comment.post_id')
+        ->selectRaw('users.name ,comment.comment, DATE_FORMAT(DATE(comment.created_at),\'%b %e %Y\') AS created,comment.updated_at')
+        ->where('post.title_slugged','=',$postID)
+        ->get();
+        //dd(DB::getQueryLog());
+
+        return $comment;
     }
 
 

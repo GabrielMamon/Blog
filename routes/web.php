@@ -22,5 +22,6 @@ Route::get('/edit/{slug}','PostController@editPost');
 
 Route::post('/createSubmit','PostController@Create');
 Route::post('/Edit','PostController@Edit');
+Route::post('post/addcomment','CommentController@postComment');
 
 
