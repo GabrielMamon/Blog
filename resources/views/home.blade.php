@@ -3,7 +3,7 @@
     {{$title}}
 @endsection
 @section('content')
-<div class="container">
+<div id="body" class="container">
         @if (session('msgtitle'))
         <div id="logalert" class="alert {{ session('msgtype') }} alert-dismissible fade show align-items-center">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -27,6 +27,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row justify-content-center">
+                @{{ message }}
 
                 @if(count($posts) > 0)
                 @php
@@ -117,29 +118,12 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        let count = {{ count($posts) }};
-        for (let index = 0; index < count; index++) {
-            const text = $('#content-'+index).text();
-
-            $('#content-'+index).html(text.substring(0,300)+"[...]");
-
-        }
-
-    });
-    $(function () {
-                $('#deletePop').on('show.bs.modal', function (event) {
-                    let button = $(event.relatedTarget);
-                    let title = button.data('title');
-                    let slug = button.data('slug');
-
-                    let modal = $(this);
-                    modal.find('.modal-body').text('Are you sure to delete '+title+'?');
-                    modal.find('.delete').attr('href','/delete/'+slug)
-                });
-
-    });
-
-</script>
 @endsection
+<!-- Scripts -->
+@section('cdnscripts')
+    <script type="text/javascript" src="{{ asset('js/home.js') }}"></script>
+@endsection
+
+
+
+

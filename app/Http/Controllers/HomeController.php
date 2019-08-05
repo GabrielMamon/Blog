@@ -51,6 +51,15 @@ class HomeController extends Controller
             ->selectRaw('users.name ,post.id,post.title,post.title_slugged, post.imagepath,post.content,post.category,DATE_FORMAT(DATE(post.created_at),\'%b %e %Y\') AS created')
             ->paginate(3);
 
+        foreach ($posts as $post) {
+            if(strlen($post->content)>250){
+               $post->content = substr(strip_tags($post->content),0,250)."[...]";
+            }
+        }
+
+
+
+
         return $posts;
     }
 
