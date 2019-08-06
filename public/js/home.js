@@ -1,4 +1,4 @@
-var app = new Vue({
+const app = new Vue({
     el: '#body',
     data: {
       message: 'Hello Vue!'

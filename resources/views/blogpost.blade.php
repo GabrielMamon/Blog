@@ -5,7 +5,7 @@
 
 
 @section('content')
-<div class="container">
+<div class="container" id="body">
     <div class="row">
         <div class="col-md-10">
             @foreach ($post as $item)
@@ -31,40 +31,30 @@
 
                     @else
                     <hr>
-                    <form method="POST" action="{{ action('CommentController@postComment') }}">
-                            @csrf
+                    <form @submit="addComment('{{ $title_slug }}','{{ Auth::user()->name }}')" @submit.prevent >
+                        @csrf
                         <div class="form-group">
-                        <input type="hidden" value="{{ $title_slug }}" name="InputPostID">
-                            <textarea class="form-control" name="InputCommentText" rows="2"></textarea>
+                            <textarea class="form-control" name="InputCommentText" rows="2" v-model="commentText"></textarea>
                         </div>
-
-                            <button type="submit" class="btn btn-primary px-4" style="float: right;">Post Comment</button>
-
-
+                        <button type="submit" class="btn btn-primary px-4" style="float: right;">Post Comment</button>
                     </form>
+                    @{{ commentText }}
                     @endguest
                 </div>
             </div>
-
             <div class="row">
-                <div class="col-md-12">
 
-                    @foreach ($comments as $comment)
-                    <hr>
-                        <div class="card border-0">
-                            <div class="card-body">
-                                <p class="card-title" style="font-size: 14px"><b>{!! $comment->name !!} - </b> <span class="text-muted">{!! $comment->created !!}</span></p>
-                                <p class="card-text">{!! $comment->comment !!}</p>
-                            </div>
-                        </div>
-                        <br>
-                    @endforeach
-
-                </div>
+                <comment-card v-bind:comments="{{ $comments }}"></comment-card>
             </div>
 
         </div>
     </div>
 
+
 </div>
+@endsection
+
+<!-- Scripts -->
+@section('cdnscripts')
+    <script type="text/javascript" src="{{ asset('js/blogpost.js') }}"></script>
 @endsection
