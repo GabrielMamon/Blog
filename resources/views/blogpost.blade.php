@@ -38,13 +38,12 @@
                         </div>
                         <button type="submit" class="btn btn-primary px-4" style="float: right;">Post Comment</button>
                     </form>
-                    @{{ commentText }}
                     @endguest
                 </div>
             </div>
             <div class="row">
 
-                <comment-card v-bind:comments="{{ $comments }}"></comment-card>
+                <comment-card v-bind:comments="sampledata"></comment-card>
             </div>
 
         </div>

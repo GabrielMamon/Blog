@@ -34,14 +34,10 @@ class HomeController extends Controller
     public function blogpost($postID){
         //get content
         $postcontent = $this->showPost($postID);
-         //get comments
-        $postcomments = $this->getcomments($postID);
-
 
         return view('blogpost')->with('post',$postcontent)
                                ->with('title',$postcontent[0]->title)
-                               ->with('title_slug',$postcontent[0]->title_slugged)
-                               ->with('comments',$postcomments);
+                               ->with('title_slug',$postcontent[0]->title_slugged);
     }
 
     public function getpost(){

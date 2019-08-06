@@ -17,12 +17,23 @@ Vue.component('comment-card',{
 const app = new Vue({
     el: '#body',
     data: {
-        commentText:""
+        commentText:"",
+        sampledata:[],
+        paramtitle: window.location.pathname
+    },computed: {
+        paramid: function(){
+            let arr = this.paramtitle.split("/")
+            return arr[2];
+        }
     },
     methods: {
         addComment: function(commentId,commentUser){
-            alert(commentId+' ,'+commentUser+', '+this.commentText)
-        }
+            this.sampledata.unshift({name:commentId,comment:this.commentText,created:'xxxxx'})
+        },
+    },
+    mounted() {
+        axios.get('/api/comment/'+this.paramid)
+        .then(response => (this.sampledata = response.data))
     },
 })
 
