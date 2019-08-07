@@ -82,7 +82,7 @@ class HomeController extends Controller
         return $posts;
     }
 
-    public function getcomments($postID){
+        public function getcomments($postID){
         //DB::enableQueryLog();
         $comment = DB::table('comment')
         ->join('users','users.id','=','comment.user_id')
@@ -94,6 +94,7 @@ class HomeController extends Controller
 
         return $comment;
     }
+
 
 
 }

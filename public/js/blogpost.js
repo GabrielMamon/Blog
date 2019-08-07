@@ -1,3 +1,5 @@
+
+
 Vue.component('comment-card',{
     props: ['comments'],
     template:
@@ -14,6 +16,7 @@ Vue.component('comment-card',{
     </div>`
 })
 
+
 const app = new Vue({
     el: '#body',
     data: {
@@ -24,15 +27,27 @@ const app = new Vue({
         paramid: function(){
             let arr = this.paramtitle.split("/")
             return arr[2];
+        },
+        datetoday: function(){
+            return moment().format('MMM DD YYYY')
         }
     },
     methods: {
         addComment: function(commentId,commentUser){
-            this.sampledata.unshift({name:commentId,comment:this.commentText,created:'xxxxx'})
+            axios.post('/comment/addcomment',{
+                InputPostID: commentId,
+                InputUserID: commentUser,
+                InputComment: this.commentText
+            }).then((response)=>{
+
+            }).catch((error)=>{
+                console.log(error.response.data)
+            });
+            this.sampledata.unshift({name:commentUser,comment:this.commentText,created:this.datetoday});
         },
     },
     mounted() {
-        axios.get('/api/comment/'+this.paramid)
+        axios.get('/comment/'+this.paramid)
         .then(response => (this.sampledata = response.data))
     },
 })

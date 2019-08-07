@@ -32,7 +32,6 @@
                     @else
                     <hr>
                     <form @submit="addComment('{{ $title_slug }}','{{ Auth::user()->name }}')" @submit.prevent >
-                        @csrf
                         <div class="form-group">
                             <textarea class="form-control" name="InputCommentText" rows="2" v-model="commentText"></textarea>
                         </div>
@@ -55,5 +54,7 @@
 
 <!-- Scripts -->
 @section('cdnscripts')
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script> -->
+    <script type="text/javascript" src="{{ asset('js/moment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/blogpost.js') }}"></script>
 @endsection

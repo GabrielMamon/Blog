@@ -19,9 +19,9 @@ class CommentController extends Controller
 
             DB::table('comment')
             ->insert(
-                ['post_id'=>$request->input('InputPostID'),
+                ['post_id'=>$request->InputPostID,
                 'user_id'=>$id,
-                'comment'=>$request->input('InputCommentText')]
+                'comment'=>$request->InputComment]
             );
             return redirect('/post/'.$request->input('InputPostID'));
 
