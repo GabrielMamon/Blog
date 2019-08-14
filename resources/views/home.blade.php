@@ -27,67 +27,13 @@
     <div class="row">
         <div class="col-md-8">
             <div class="row justify-content-center">
-                @{{ message }}
 
                 @if(count($posts) > 0)
-                @php
-                   $p = 0;
-                @endphp
-                @foreach ($posts as $object)
-                <div class="card my-1">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-9">
-                            <a href="/post/{{$object->title_slugged}}" class="post-title">{{ $object->title }}</a>
-                            </div>
-
-                            <div class="col-md-3">
-
-                                <h6 class="post-categorydate text-muted" style="text-align: right;">
-                                    {{ $object->category }} / {{ $object->created }}
-                                </h6>
-                            </div>
-                        </div>
 
 
-                        <div class="row">
-                            <div class="col-md-4 col-sm-6 d-flex flex-wrap align-items-center">
-                                <img src="{{ asset('images/'.$object->imagepath.'') }}"
-                                    style="max-width: 75%;">
-                            </div>
+                <post-items v-bind:posts="{{ collect($posts->items())->toJson() }}"></post-items>
+                {{ $posts->render() }}
 
-                            <div class="col-md-8 col-sm-6 ">
-                                <div id="content-{{$p}}" class="row px-1">
-                                <p class="card-text card-content" style="margin-top:10px">
-                                        {!! $object->content !!}
-                                </p>
-                                </div>
-                                <div class="row pt-3">
-
-                                    <div class="col-md-6">
-                                            <a href="/post/{{$object->title_slugged}}" class="card-link">Read More</a>
-                                    </div>
-
-                                    @if (Auth::id()==1)
-                                    <div class="col-md-6 " style="text-align: right;">
-                                            <a class="btn btn-primary" href="/edit/{{$object->title_slugged}}"><i class="fa fa-pencil"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletePop" data-title="{{$object->title}}" data-slug="{{$object->title_slugged}}"><i class="fa fa-trash"></i>
-                                            </button>
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-                @php
-                    $p++;
-                @endphp
-                @endforeach
-                <?php echo $posts->render(); ?>
                 @else
 
                 <h4>Nothing is posted here...</h4>

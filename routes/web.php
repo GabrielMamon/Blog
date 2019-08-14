@@ -11,9 +11,14 @@
 |
 */
 
+            /* --- Home Routes --- */
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
+/*
+Route::get('/category/{category}', 'HomeController@index')->name('home');
+Route::get('/search/{search}', 'HomeController@index')->name('home');
+*/
 Auth::routes();
 Route::get('/post/{title}','HomeController@blogpost');
 Route::get('/create', 'PostController@createPost')->name('create');

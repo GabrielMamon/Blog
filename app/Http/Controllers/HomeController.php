@@ -52,10 +52,6 @@ class HomeController extends Controller
                $post->content = substr(strip_tags($post->content),0,250)."[...]";
             }
         }
-
-
-
-
         return $posts;
     }
 

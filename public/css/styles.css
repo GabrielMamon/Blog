@@ -8,8 +8,44 @@
   text-decoration: none;
 }
 
-.post-categorydate {
+.post-category {
   font-size: 14px;
+}
+
+.post-authordate {
+  font-size: 12px;
+  color: #AAAAAA;
+}
+
+.post-authordate a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.cat-btn {
+  background-color: #333333;
+  border-radius: 3px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 11px;
+  padding: 5px 14px;
+  text-decoration: none;
+}
+
+.cat-btn:hover {
+  background-color: #7a7a7a;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.cat-btn:active {
+  position: relative;
+  top: 1px;
+  text-decoration: none;
+  color: #ffffff;
 }
 
 .card-content {
