@@ -48,17 +48,19 @@
             @endif
 
             @if(count($posts) > 0)
-                <div class="recent">
-                <h5>Recent Post/s</h5>
-                <hr>
-                @foreach ($recent as $object)
-                    @if (strlen($object->title)>20)
-                        {!! substr($object->title,0,20) !!} [...] - {{ $object->created }} <br>
-                    @else
-                        {!! $object->title !!} - {{ $object->created }} <br>
-                    @endif
-                @endforeach
+            <div class="card my-1">
+                <div class="card-body">
+                    <h5>Recent</h5>
+                    <hr>
+                    @foreach ($recent as $object)
+                        @if (strlen($object->title)>20)
+                            {!! substr($object->title,0,20) !!} [...] - {{ $object->created }} <br>
+                        @else
+                            {!! $object->title !!} - {{ $object->created }} <br>
+                        @endif
+                    @endforeach
                 </div>
+            </div>
             @endif
 
         </div>

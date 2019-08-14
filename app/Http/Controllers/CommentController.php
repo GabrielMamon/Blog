@@ -17,7 +17,7 @@ class CommentController extends Controller
         if($request->isMethod('post')){
             $id = Auth::id();
 
-            DB::table('comment')
+            DB::table('comments')
             ->insert(
                 ['post_id'=>$request->InputPostID,
                 'user_id'=>$id,

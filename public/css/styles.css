@@ -13,7 +13,7 @@
 }
 
 .post-authordate {
-  font-size: 12px;
+  font-size: 13px;
   color: #AAAAAA;
 }
 
@@ -21,6 +21,10 @@
   text-decoration: none;
   color: black;
   font-weight: bold;
+}
+
+.post-authordate a:hover {
+  color: gray;
 }
 
 .cat-btn {
@@ -50,6 +54,32 @@
 
 .card-content {
   font-size: 16px;
+}
+
+.card-wrap {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-wrap:hover {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.card-bottom {
+  font-size: 14px;
+  bottom: 0;
+}
+
+.card-bottom a {
+  text-decoration: none;
+  color: gray;
+  font-weight: bold;
+}
+
+.card-bottom a:hover {
+  color: black;
 }
 
 .recent {

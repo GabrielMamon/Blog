@@ -3,23 +3,24 @@ Vue.component('post-items', {
     template:
     `<div>
         <div v-for="post in posts">
+        <a :href="'/post/'+post.title_slugged" class="card-wrap">
         <div class="card my-1">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
                 <div class="row">
                     <div class="col-md-9">
-                    <a :href="'/post/'+post.title_slugged" class="post-title">{{ post.title }}</a>
+                    <span  class="post-title">{{ post.title }}</span>
                     </div>
 
                     <div class="col-md-3">
                         <h6 class="post-category" style="text-align: right;">
-                            <a href='#' class="cat-btn">{{ post.category }}</a>
+                            <a :href="/category/+post.category" class="cat-btn">{{ post.category }}</a>
                         </h6>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-9">
                         <h6 class="post-authordate">
-                        <a href="#">{{ post.name }}</a> - {{ post.created }}
+                        <a :href="/author/+post.name">{{ post.name }}</a> - {{ post.created }}
                         </h6>
                     </div>
                 </div>
@@ -30,20 +31,21 @@ Vue.component('post-items', {
                     </div>
 
                     <div class="col-md-8 col-sm-6 ">
-                        <div id="content" class="row px-1">
+                        <div id="content" class="col">
                         <p class="card-text card-content" style="margin-top:10px">
                                 {{ post.content }}
                         </p>
                         </div>
-                        <div class="row pt-3">
-                            <div class="col-md-6">
-                                    <a :href="'/post/'+post.title_slugged" class="card-link">Read More</a>
-                            </div>
+                        <div class="w-100"></div>
+                        <div class="col card-bottom align-items-end">
+                                <a :href="'/post/'+post.title_slugged+'#comments'">
+                                <i class="fa fa-comments" aria-hidden="true"></i> {{ post.comment }}</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </a>
         </div>
 
     </div>`
