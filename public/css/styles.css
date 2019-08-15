@@ -1,7 +1,19 @@
+.post-card {
+  padding: 5px 20px 25px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.post-card:hover {
+  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
 .post-title {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 500;
   color: black;
+  letter-spacing: 0.05em;
 }
 
 .post-title:hover {
@@ -53,7 +65,7 @@
 }
 
 .card-content {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .card-wrap {
@@ -68,8 +80,10 @@
 }
 
 .card-bottom {
-  font-size: 14px;
+  font-size: 13px;
+  position: absolute;
   bottom: 0;
+  margin-right: 0;
 }
 
 .card-bottom a {
@@ -84,5 +98,27 @@
 
 .recent {
   padding-top: 10px;
+}
+
+.section-head {
+  font-size: 1.0  em;
+  letter-spacing: 0.08em;
+  font-weight: 100;
+  color: #FFFFFF;
+  text-shadow: 0 1px 1px #FFFFFF;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+}
+
+.section-head span {
+  background-color: #F60;
+  padding: 2px 15px;
+}
+
+.section-head + div {
+  border-bottom: 3px solid #F60;
+  background-color: #F60;
+  height: 3px;
+  margin: 0px;
 }
 /*# sourceMappingURL=styles.css.map */

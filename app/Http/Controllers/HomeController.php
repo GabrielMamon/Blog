@@ -130,8 +130,8 @@ class HomeController extends Controller
     private function shortenText($datas){
 
         foreach ($datas as $data) {
-            if(strlen($data->content)>250){
-               $data->content = substr(strip_tags($data->content),0,250)."[...]";
+            if(strlen($data->content)>200){
+               $data->content = substr(strip_tags($data->content),0,200)."[...]";
             }
         }
         return $datas;
