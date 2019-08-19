@@ -23,10 +23,29 @@
                 </div>
             </div>
         </div>
-
+    <!-- Carousel -->
     <div class="row">
 
+        <div class="wrapper">
+            <agile>
+                    <div class="slide" v-for="n in 6" :key="n" :class="`slide--${n}`">
+                      <h3>@{{ n }}</h3>
+                    </div>
+                    <template slot="prevButton"><i class="fa fa-chevron-left"></i></template>
+                    <template slot="nextButton"><i class="fa fa-chevron-right"></i></template>
+            </agile>
+        </div>
+
+    </div>
+
+
+
+    <div class="row">
         <div class="col-md-8">
+            <!-- Featured Articles -->
+
+
+            <!-- Latest Articles -->
             <p class="section-head"><span>Latest Articles</span></p><div></div>
 
 
@@ -46,6 +65,8 @@
 
 
         </div>
+
+        <!-- Sidebar -->
         <div class="col-md-4 col-md-auto d-flex flex-column">
             @if (Auth::id()==1)
                 <a href="create" class="btn btn-primary">CREATE POST</a>

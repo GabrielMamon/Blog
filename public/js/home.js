@@ -1,9 +1,10 @@
+
 Vue.component('post-items', {
     props: ['posts'],
     template:
     `<div class="col-md-12">
         <div v-for="post in posts" class="post-card">
-            <a :href="'/post/'+post.title_slugged" class="card-wrap">
+            <a :href="'/post/'+post.title_slugged" class="card-wrap" style="outline: none;">
             <div class="row">
                 <div class="col-md-9">
                     <span class="post-title">{{ post.title }}</span>
@@ -49,12 +50,11 @@ Vue.component('post-items', {
     </div>`
 })
 
-
 const app = new Vue({
     el: '#body',
     data: {
         message: 'Hello Vue!'
-    }
+    },
 })
 
 

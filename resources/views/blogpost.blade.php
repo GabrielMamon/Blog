@@ -54,7 +54,5 @@
 
 <!-- Scripts -->
 @section('cdnscripts')
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script> -->
-    <script type="text/javascript" src="{{ asset('js/moment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/blogpost.js') }}"></script>
 @endsection

@@ -144,6 +144,7 @@ class HomeController extends Controller
         ->join('post','post.title_slugged','=','comments.post_id')
         ->selectRaw('users.name ,comments.comment, DATE_FORMAT(DATE(comments.created_at),\'%b %e %Y\') AS created,comments.updated_at')
         ->where('post.title_slugged','=',$postID)
+        ->orderBy('comments.created_at','DESC')
         ->get();
         //dd(DB::getQueryLog());
 
