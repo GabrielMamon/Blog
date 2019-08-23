@@ -8,7 +8,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import moment from 'moment'
+import VueAgile from 'vue-agile'
 window.moment = moment
+Vue.use(VueAgile)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

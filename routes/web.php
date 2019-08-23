@@ -16,8 +16,11 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/author/{author}', 'HomeController@postAuthor');
-
 Route::get('/category/{category}', 'HomeController@postCategory');
+
+Route::post('/postSearch','HomeController@prosSearch');
+Route::get('/search/{search}','HomeController@postSearch');
+
 
 /*
 
@@ -34,6 +37,7 @@ Route::post('/Edit','PostController@Edit');
 
 Route::get('/comment/{post}','HomeController@getComments');
 Route::post('/comment/addcomment','CommentController@postComment');
+
 
 
 

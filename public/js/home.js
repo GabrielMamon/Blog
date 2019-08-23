@@ -4,7 +4,7 @@ Vue.component('post-items', {
     template:
     `<div class="col-md-12">
         <div v-for="post in posts" class="post-card">
-            <a :href="'/post/'+post.title_slugged" class="card-wrap" style="outline: none;">
+            <a :href="'/post/'+post.title_slugged" class="post-wrap" style="outline: none;">
             <div class="row">
                 <div class="col-md-9">
                     <span class="post-title">{{ post.title }}</span>
@@ -33,12 +33,12 @@ Vue.component('post-items', {
 
                 <div class="col-md-8 col-sm-6">
                     <div id="content" class="col">
-                    <p class="card-text card-content" style="margin-top:10px">
+                    <p class="card-text post-content" style="margin-top:10px">
                             {{ post.content }}
                     </p>
                     </div>
                     <div class="w-100"></div>
-                    <div class="col card-bottom">
+                    <div class="col post-bottom">
                             <a :href="'/post/'+post.title_slugged+'#comments'">
                             <i class="fa fa-comments" aria-hidden="true"></i> {{ post.comment }}</a>
                     </div>
@@ -55,6 +55,7 @@ const app = new Vue({
     data: {
         message: 'Hello Vue!'
     },
+
 })
 
 

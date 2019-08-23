@@ -25,40 +25,93 @@ class HomeController extends Controller
     public function index()
     {
         $postdata = $this->getPost();
+
         $recentdata = $this->getRecent();
+        $categories = $this->getCategoryList();
 
         return view('home')->with('posts',$postdata)
                         ->with('recent',$recentdata)
+                        ->with('categories',$categories)
                         ->with('title','Home');
     }
 
     public function blogPost($postID){
         //get content
+        $postdata = $this->getPost();
         $postcontent = $this->showPost($postID);
+        $pageslink = $this->getPrevNext($postID);
+
+        $recentdata = $this->getRecent();
+        $categories = $this->getCategoryList();
+
+        if(count($pageslink) === 1){
+            if($pageslink[0]->dummy == '0'){
+                $arr = array('dummy' => '1','title' => 'You have reached the latest post','link' => ''); //pre
+                $arr = (object) $arr;
+                array_push($pageslink,$arr);
+            }else{
+                $arr = array('dummy' => '0','title' => 'You have reached the earliest post','link' => ''); //n
+
+                $arr = (object) $arr;
+                array_unshift($pageslink,$arr);
+            }
+        }
+        //dd($pageslink);
+
 
         return view('blogpost')->with('post',$postcontent)
                                ->with('title',$postcontent[0]->title)
-                               ->with('title_slug',$postcontent[0]->title_slugged);
+                               ->with('title_slug',$postcontent[0]->title_slugged)
+                               ->with('pageslink',$pageslink)
+                               ->with('posts',$postdata)
+                               ->with('categories',$categories)
+                               ->with('recent',$recentdata);
+
+
     }
 
     public function postAuthor($authorName){
 
         $postdata = $this->getAuthor($authorName);
-        $recentdata = $this->getRecent();
 
-        return view('home')->with('posts',$postdata)
-                        ->with('recent',$recentdata)
-                        ->with('title',$authorName);
+        $recentdata = $this->getRecent();
+        $categories = $this->getCategoryList();
+
+        return view('search')->with('posts',$postdata)
+                        ->with('title',$authorName)
+                        ->with('categories',$categories)
+                        ->with('recent',$recentdata);
     }
 
     public function postCategory($categoryName){
 
         $postdata = $this->getCategory($categoryName);
-        $recentdata = $this->getRecent();
 
-        return view('home')->with('posts',$postdata)
+        $recentdata = $this->getRecent();
+        $categories = $this->getCategoryList();
+
+        return view('search')->with('posts',$postdata)
+                        ->with('title',$categoryName)
+                        ->with('categories',$categories)
+                        ->with('recent',$recentdata);
+    }
+
+    public function prosSearch(Request $request){
+        $searchItem = $request->input('InputSearch');
+        return redirect('search/'.$searchItem);
+    }
+
+    public function postSearch($searchItem){
+        $postdata = $this->getSearch($searchItem);
+
+        $recentdata = $this->getRecent();
+        $categories = $this->getCategoryList();
+
+        return view('search')->with('posts',$postdata)
+                        ->with('title',$searchItem)
+                        ->with('categories',$categories)
                         ->with('recent',$recentdata)
-                        ->with('title',$categoryName);
+                        ->with('searchval',$searchItem);
     }
 
     private function getPost(){
@@ -68,6 +121,7 @@ class HomeController extends Controller
             ->join('comments AS c','c.post_id','=','p.title_slugged','left outer')
             ->selectRaw('u.name ,p.id,p.title,p.title_slugged, p.imagepath,p.content,p.category,COUNT(c.comment) AS comment,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
             ->groupBy('p.id')
+            ->orderBy('p.created_at','DESC')
             ->paginate(3);
 
         $posts = $this->shortenText($posts);
@@ -82,8 +136,30 @@ class HomeController extends Controller
             ->selectRaw('users.name ,post.id,post.title,post.title_slugged, post.imagepath,post.content,post.category,DATE_FORMAT(DATE(post.created_at),\'%b %e %Y\') AS created')
             ->where('post.title_slugged','=',$postID)
             ->get();
-            //dd(DB::getQueryLog());
+        //dd(DB::getQueryLog());
         return $posts;
+    }
+
+    private function getPrevNext($slugged){
+        //DB::enableQueryLog();
+
+        $pages = DB::select('(select \'0\' as dummy,title,concat(\'href=\',`title_slugged`,\'\') as link from post where id < (SELECT id from post where `post`.`title_slugged` = "'.$slugged.'") order by id desc limit 1)UNION
+        (select \'1\' as dummy,title,concat(\'href=\',`title_slugged`,\'\') as link from post where id > (SELECT id from post where `post`.`title_slugged` = "'.$slugged.'") order by id limit 1)')
+        ;
+        //dd(DB::getQueryLog());
+
+        return $pages;
+    }
+
+    private function getCategoryList(){
+        $categories = DB::table('post')
+                    ->selectRaw('distinct category, count(category) as total')
+                    ->groupBy('category')
+                    ->orderBy('total','DESC')
+                    ->orderBy('category','ASC')
+                    ->get();
+
+        return $categories;
     }
 
     private function getRecent(){
@@ -100,10 +176,11 @@ class HomeController extends Controller
 
     private function getAuthor($authorName){
         //DB::enableQueryLog();
-        $posts = DB::table('post')
-            ->join('users','users.id','=','post.author')
-            ->selectRaw('users.name,post.id,post.title,post.title_slugged, post.imagepath,post.content,post.category,DATE_FORMAT(DATE(post.created_at),\'%b %e %Y\') AS created')
-            ->where('users.name','=',$authorName)
+        $posts = DB::table('post as p')
+            ->join('users as u','u.id','=','p.author')
+            ->selectRaw('u.name,p.id,p.title,p.title_slugged, p.imagepath,p.content,p.category,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
+            ->where('u.name','=',$authorName)
+            ->orderBy('p.created_at','DESC')
             ->paginate(3);
         //dd(DB::getQueryLog());
 
@@ -117,6 +194,7 @@ class HomeController extends Controller
             ->join('users','users.id','=','post.author')
             ->selectRaw('users.name,post.id,post.title,post.title_slugged, post.imagepath,post.content,post.category,DATE_FORMAT(DATE(post.created_at),\'%b %e %Y\') AS created')
             ->where('post.category','=',$categoryName)
+            ->orderBy('post.created_at','DESC')
             ->paginate(3);
         //dd(DB::getQueryLog());
 
@@ -125,6 +203,21 @@ class HomeController extends Controller
 
     private function getSearch($searchItem){
 
+        //DB::enableQueryLog();
+        $posts = DB::table('post')
+            ->join('users','users.id','=','post.author')
+            ->selectRaw('users.name,post.id,post.title,post.title_slugged, post.imagepath,post.content,post.category,DATE_FORMAT(DATE(post.created_at),\'%b %e %Y\') AS created')
+            ->whereRaw('match (post.title, post.content) against (\''.$searchItem.'\' in natural language mode)')
+            ->orwhere('users.name','=',$searchItem)
+            ->orwhere('post.category','=',$searchItem)
+            ->orderByRaw('case when post.title then 1
+                                when users.name then 2
+                                when post.category then 3
+                          end')
+            ->paginate(3);
+        //dd(DB::getQueryLog());
+
+        return $this->shortenText($posts);
     }
 
     private function shortenText($datas){
