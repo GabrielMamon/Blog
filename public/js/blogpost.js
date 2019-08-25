@@ -3,7 +3,12 @@
 Vue.component('comment-card',{
     props: ['comments'],
     template:
-    `<div  class="col-md-12">
+    `<div class="col-md-12">
+        <div v-if="comments.length == 0">
+            <div class="card border-0" >
+                <div class="card-body">No comments to display.</div>
+            </div>
+        </div>
         <div v-for="comment in comments">
             <div class="card border-0" >
                 <div class="card-body">
@@ -30,6 +35,9 @@ const app = new Vue({
         },
         datetoday: function(){
             return moment().format('MMM DD YYYY')
+        },
+        commentnum: function(){
+            return this.sampledata.length;
         }
     },
     methods: {
@@ -48,7 +56,9 @@ const app = new Vue({
     },
     mounted() {
         axios.get('/comment/'+this.paramid)
-        .then(response => (this.sampledata = response.data))
+        .then(response => (
+            this.sampledata = response.data
+            ))
     },
 })
 

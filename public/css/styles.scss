@@ -1,4 +1,4 @@
-$gray: #AAAAAA;
+$gray: #919191;
 // Slides backgrounds
 $colors: #f1c40f,
 #e67e22,
@@ -6,6 +6,15 @@ $colors: #f1c40f,
 #9b59b6,
 #3498db,
 #2ecc71;
+//Screen Sizes
+$xsmall: 576px;
+$small: 768px;
+
+.cont-main{
+    @media screen and (max-width:$small) {
+        margin-top: 10px;
+    }
+}
 
 .post-card {
     padding: 5px 20px 25px;
@@ -15,64 +24,102 @@ $colors: #f1c40f,
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
     }
 
-    .post-title {
-        font-size: 24px;
-        font-weight: 500;
-        color: black;
-        letter-spacing: 0.05em;
+    .post-content {
 
-        &:hover {
-            text-decoration: none;
+        div:nth-child(1) {
+            justify-content: center;
         }
-    }
 
-    .post-category {
-        font-size: 14px
-    }
+        div>img {
+            max-height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
 
-    .post-authordate {
-        font-size: 13px;
-        color: $gray;
 
-        a {
-            text-decoration: none;
+
+        div:nth-child(2) {
+            padding-bottom: 30px;
+            position: relative;
+        }
+
+        .post-title {
+            font-size: 1.2rem;
+            font-weight: 200;
             color: black;
-            font-weight: bold;
+            letter-spacing: 0.05em;
 
             &:hover {
-                color: gray;
+                text-decoration: none;
             }
         }
-    }
 
-    .cat-btn {
-        background-color: #333333;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        display: inline-block;
-        cursor: pointer;
-        color: #ffffff;
-        font-family: Arial;
-        font-size: 11px;
-        padding: 5px 14px;
-        text-decoration: none;
-        transition: background-color .2s;
+        .post-details {
+            font-size: 0.75rem;
 
-        &:hover {
-            background-color: #7a7a7a;
-            text-decoration: none;
+            a {
+                text-decoration: none;
+                color: black;
+                font-weight: bold;
+                transition: color .2s;
+
+                &:hover {
+                    color: gray;
+                }
+            }
+
+            .cat-btn {
+                background-color: #333333;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                border-radius: 3px;
+                display: inline-block;
+                cursor: pointer;
+                color: #ffffff;
+                font-family: Arial;
+                font-size: 10px;
+                padding: 4px 8px;
+                text-decoration: none;
+                transition: background-color .2s;
+                margin-left: 10px;
+
+                &:hover {
+                    background-color: #7a7a7a;
+                    color: #ffffff;
+                    text-decoration: none;
+                }
+
+                &:active {
+                    position: relative;
+                    top: 1px;
+                    text-decoration: none;
+                }
+            }
         }
 
-        &:active {
-            position: relative;
-            top: 1px;
-            text-decoration: none;
+        .post-desc {
+            font-size: 0.8rem;
+            color: $gray;
         }
-    }
 
-    .post-content {
-        font-size: 14px
+        .post-bottom {
+            font-size: 0.7rem;
+            position: absolute;
+            bottom: 0;
+            text-align: right;
+
+            a {
+                text-decoration: none;
+                color: gray;
+                font-weight: bold;
+                transition: color .4s;
+
+                &:hover {
+                    color: black;
+                }
+            }
+        }
+
     }
 
     .post-wrap {
@@ -87,22 +134,7 @@ $colors: #f1c40f,
 
     }
 
-    .post-bottom {
-        font-size: 13px;
-        position: absolute;
-        bottom: 0;
-        margin-right: 0;
 
-        a {
-            text-decoration: none;
-            color: gray;
-            font-weight: bold;
-
-            &:hover {
-                color: black;
-            }
-        }
-    }
 }
 
 .side-card {
@@ -113,11 +145,9 @@ $colors: #f1c40f,
         padding: 5px 15px;
         border-bottom: 1px solid rgb(231, 231, 231);
 
-        &::before {
-            font-family: FontAwesome;
-            content: "\f105";
+        i {
             padding-right: 10px;
-            font-size: 15px;
+            font-size: 16px;
         }
 
         a {
@@ -133,16 +163,10 @@ $colors: #f1c40f,
     }
 }
 
-.recent {
-    padding-top: 10px
-}
-
 .section-head {
-    font-size: 0.8em;
-    letter-spacing: 0.08em;
-    font-weight: 100;
+    font-size: 0.9em;
+    letter-spacing: 0.1em;
     color: #FFFFFF;
-    text-shadow: 0 1px 1px #FFFFFF;
     text-transform: uppercase;
     margin-bottom: 0px;
 
@@ -150,7 +174,7 @@ $colors: #f1c40f,
         $color: nth($colors, $i);
 
         &.c#{$i} span {
-            padding: 5px 15px;
+            padding: 4px 15px;
             background-color: $color;
         }
 
@@ -163,45 +187,69 @@ $colors: #f1c40f,
 
 }
 
-.navlink {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    transition: color .2s;
+div.navlink {
+    margin-bottom: 20px;
 
-    &:hover {
-        color: #3498db;
-    }
+    div {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        transition: color .2s;
 
-    a {
-        color: inherit;
-        text-decoration: none;
+        &:hover {
+            color: #3498db;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
     }
 }
 
+// VueAgile styles
 .agile {
-    &__actions {
-        margin-top: 20px;
-    }
+    margin-top: 5px;
+    margin-bottom: 10px;
 
     &__nav-button {
         background: transparent;
         border: none;
-        color: #ccc;
+        color: #fff;
         cursor: pointer;
-        font-size: 24px;
-        transition-duration: .3s;
+        font-size: 32px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        transition-duration: .5s;
+        width: 80px;
+        opacity: 0;
 
         &:hover {
-            color: #888;
+            opacity: 1;
         }
+
+        &--prev {
+            left: 0;
+        }
+
+        &--next {
+            right: 0;
+        }
+    }
+
+    &__dots {
+        bottom: 10px;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
     }
 
     &__dot {
         margin: 0 10px;
 
         button {
-            background-color: #eee;
-            border: none;
+            background-color: transparent;
+            border: 1px solid #fff;
             border-radius: 50%;
             cursor: pointer;
             display: block;
@@ -217,30 +265,46 @@ $colors: #f1c40f,
         &--current,
         &:hover {
             button {
-                background-color: #888;
+                background-color: #fff;
             }
         }
     }
 }
 
 // Slides styles
-.slide {
-    align-items: center;
+.slide-card {
+    position: relative;
     color: #fff;
     display: flex;
-    height: 300px;
-    justify-content: center;
+    height: auto;
 
-    h3 {
-        font-size: 32px;
+    div {
+        position: absolute;
+        bottom: 0;
+        font-size: 26px;
         font-weight: 300;
+        text-align: center;
+        width: 100%;
+    }
+
+    img {
+
+        max-width: 100%;
     }
 }
 
-@for $i from 1 through length($colors) {
-    $color: nth($colors, $i);
+.slide-card-inv {
+    @extend .slide-card;
 
-    .slide--#{$i} {
-        background-color: $color;
+    &.top {
+        margin-top: 5px;
+    }
+
+    &.bot {
+        margin-top: 20px;
+
+        @media screen and (max-width:$small) {
+            margin-top: 5px;
+        }
     }
 }

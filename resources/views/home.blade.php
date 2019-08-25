@@ -25,25 +25,47 @@
         </div>
     </div>
     <!-- Carousel -->
-    <div class="row">
-        <div class="col-md-12">
 
-            <agile>
-                <div class="slide" v-for="n in 6" :key="n" :class="`slide--${n}`">
-                    <h3>@{{ n }}</h3>
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+             <!-- Featured Articles -->
+            <p class="section-head c1"><span>Featured Articles</span></p>
+            <div></div>
+            <agile :dots="false" :speed="800" :autoplay-speed="5000">
+                <div class="slide-card">
+                    <img class="slide" src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
+                    <div>Caption Title of Post</div>
                 </div>
                 <template slot="prevButton"><i class="fa fa-chevron-left"></i></template>
                 <template slot="nextButton"><i class="fa fa-chevron-right"></i></template>
             </agile>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <p class="section-head c5"><span>Trending Articles</span></p>
+            <div></div>
+            <div class="row">
+            <div class="col-md-12 col-sm-6">
+                <div class="slide-card-inv top">
+                    <img class="slide" src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
+                    <div>Caption Title of Post</div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-6">
+                <div class="slide-card-inv bot">
+                    <img class="slide" src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
+                    <div>Caption Title of Post</div>
+                </div>
+            </div>
+            </div>
         </div>
 
     </div>
 
 
 
-    <div class="row">
-        <div class="col-md-8">
-            <!-- Featured Articles -->
+    <div class="row cont-main">
+        <div class="col-md-8 col-sm-12">
+
 
 
             <!-- Latest Articles -->

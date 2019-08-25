@@ -26,8 +26,8 @@
             </div>
 
             <div class="w-100"></div>
-            <div class="row">
-                <div class="col-md-6 navlink">
+            <div class="row navlink">
+                <div class="col-md-6">
                     <a {{ $pageslink[0]->link }}>
                         <b>PREVIOUS</b>
                         <br>
@@ -46,7 +46,12 @@
 
             <!-- Comment Section -->
 
+        <p class="section-head c2"><span> @{{commentnum}} comment/s</span></p>
+            <div></div>
+
             <div class="row">
+
+                <comment-card v-bind:comments="sampledata"></comment-card>
 
                 @guest
 
@@ -61,11 +66,6 @@
                         Comment</button>
                 </form>
                 @endguest
-
-
-
-                <div class="wd-100"></div>
-                <comment-card v-bind:comments="sampledata"></comment-card>
 
 
             </div>
