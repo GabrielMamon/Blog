@@ -28,11 +28,13 @@ class HomeController extends Controller
 
         $recentdata = $this->getRecent();
         $categories = $this->getCategoryList();
+        $trenddata = $this->getTopPosts();
 
         return view('home')->with('posts',$postdata)
                         ->with('recent',$recentdata)
                         ->with('categories',$categories)
-                        ->with('title','Home');
+                        ->with('title','Home')
+                        ->with('items',$trenddata);
     }
 
     public function blogPost($postID){
@@ -137,6 +139,21 @@ class HomeController extends Controller
             ->where('post.title_slugged','=',$postID)
             ->get();
         //dd(DB::getQueryLog());
+        return $posts;
+    }
+
+    private function getTopPosts(){
+        $posts = DB::table('post AS p')
+            ->join('users AS u','u.id','=','p.author')
+            ->join('comments AS c','c.post_id','=','p.title_slugged','left outer')
+            ->selectRaw('u.name ,p.id,p.title,p.title_slugged, p.imagepath,p.content,p.category,COUNT(c.comment) AS comment,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
+            ->groupBy('p.id')
+            ->orderBy('comment','DESC')
+            ->limit(2)
+            ->get();
+
+        $posts = $this->shortenText($posts);
+
         return $posts;
     }
 

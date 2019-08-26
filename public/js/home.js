@@ -36,7 +36,26 @@ Vue.component('post-items', {
             </a>
         </div>
     </div>`
-})
+});
+
+Vue.component('side-card',{
+    props:['items'],
+    template:`
+    <div class="row">
+        <div class="col-md-12 col-sm-6 col-xs-6" v-for="item in items">
+            <a :href="'/post/'+item.title_slugged">
+                <div class="slide-card-inv top">
+                    <img :src="'/images/'+item.imagepath"/>
+                    <div>
+                        <h4>{{ item.title }}</h4>
+                        <h6>{{ item.name }} - {{ item.created }}</h6>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    `
+});
 
 const app = new Vue({
     el: '#body',

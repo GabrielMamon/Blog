@@ -34,7 +34,10 @@
             <agile :dots="false" :speed="800" :autoplay-speed="5000">
                 <div class="slide-card">
                     <img class="slide" src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-                    <div>Caption Title of Post</div>
+                    <div>
+                        <h4>Caption Title of Post</h4>
+                        <h6>Author - Jul 9 2010</h6>
+                    </div>
                 </div>
                 <template slot="prevButton"><i class="fa fa-chevron-left"></i></template>
                 <template slot="nextButton"><i class="fa fa-chevron-right"></i></template>
@@ -43,20 +46,7 @@
         <div class="col-md-4 col-sm-12">
             <p class="section-head c5"><span>Trending Articles</span></p>
             <div></div>
-            <div class="row">
-            <div class="col-md-12 col-sm-6">
-                <div class="slide-card-inv top">
-                    <img class="slide" src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-                    <div>Caption Title of Post</div>
-                </div>
-            </div>
-            <div class="col-md-12 col-sm-6">
-                <div class="slide-card-inv bot">
-                    <img class="slide" src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-                    <div>Caption Title of Post</div>
-                </div>
-            </div>
-            </div>
+            <side-card v-bind:items="{{ $items }}"></side-card>
         </div>
 
     </div>
@@ -65,9 +55,6 @@
 
     <div class="row cont-main">
         <div class="col-md-8 col-sm-12">
-
-
-
             <!-- Latest Articles -->
             <div>
             <p class="section-head c2"><span>Latest Articles</span></p>
@@ -86,9 +73,6 @@
 
             <h4>Nothing is posted here...</h4>
             @endif
-
-
-
         </div>
 
         @include('sidebar')

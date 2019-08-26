@@ -306,38 +306,60 @@ div.navlink div a {
   background-color: #fff;
 }
 
-.slide-card, .slide-card-inv {
+.slide-card, div div > a > div.slide-card-inv {
   position: relative;
   color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: auto;
+  overflow: hidden;
 }
 
-.slide-card div, .slide-card-inv div {
+.slide-card div, div div > a > div.slide-card-inv div {
   position: absolute;
   bottom: 0;
-  font-size: 26px;
+  font-size: 1.5rem;
   font-weight: 300;
-  text-align: center;
   width: 100%;
+  padding: 5px 10px;
+  background-color: rgba(34, 34, 34, 0.2);
 }
 
-.slide-card img, .slide-card-inv img {
-  max-width: 100%;
+.slide-card img, div div > a > div.slide-card-inv img {
+  width: 100%;
+  -webkit-transition: -webkit-transform 1s ease;
+  transition: -webkit-transform 1s ease;
+  transition: transform 1s ease;
+  transition: transform 1s ease, -webkit-transform 1s ease;
 }
 
-.slide-card-inv.top {
+.slide-card img:hover, div div > a > div.slide-card-inv img:hover {
+  -webkit-transform: scale(1.075);
+          transform: scale(1.075);
+}
+
+.slide-card a, div div > a > div.slide-card-inv a {
+  text-decoration: none;
+  color: inherit;
+}
+
+div div > a > div.slide-card-inv img {
+  height: 218.75px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+div div:nth-child(1) > a > div.slide-card-inv {
   margin-top: 5px;
 }
 
-.slide-card-inv.bot {
+div div:nth-child(2) > a > div.slide-card-inv {
   margin-top: 20px;
 }
 
 @media screen and (max-width: 768px) {
-  .slide-card-inv.bot {
+  div div:nth-child(2) > a > div.slide-card-inv {
     margin-top: 5px;
   }
 }

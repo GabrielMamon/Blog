@@ -277,32 +277,45 @@ div.navlink {
     color: #fff;
     display: flex;
     height: auto;
+    overflow: hidden;
 
     div {
         position: absolute;
         bottom: 0;
-        font-size: 26px;
+        font-size: 1.5rem;
         font-weight: 300;
-        text-align: center;
         width: 100%;
+        padding: 5px 10px;
+        background-color: rgba(34, 34, 34, 0.2)
     }
 
     img {
+        width: 100%;
+        transition: transform 1s ease;
+        &:hover{
+            transform: scale(1.075);
+        }
+    }
 
-        max-width: 100%;
+    a{
+        text-decoration: none;
+        color: inherit;
     }
 }
 
-.slide-card-inv {
-    @extend .slide-card;
-
-    &.top {
-        margin-top: 5px;
+div{
+    & div > a >div.slide-card-inv{
+        @extend .slide-card;
+        img {
+            height: 218.75px;
+            object-fit: cover;
+        }
     }
-
-    &.bot {
+    & div:nth-child(1) > a > div.slide-card-inv{
+            margin-top: 5px;
+    }
+    & div:nth-child(2) > a > div.slide-card-inv{
         margin-top: 20px;
-
         @media screen and (max-width:$small) {
             margin-top: 5px;
         }
