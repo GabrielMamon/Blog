@@ -1,0 +1,13 @@
+.table-img > img {
+  max-height: 150px;
+  width: 100%;
+}
+
+.table-title {
+  font-size: 1rem;
+}
+
+.table-content {
+  font-size: 0.8rem;
+}
+/*# sourceMappingURL=styles2.css.map */

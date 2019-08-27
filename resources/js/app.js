@@ -8,9 +8,13 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import moment from 'moment'
-import VueAgile from 'vue-agile'
 window.moment = moment
+import VueAgile from 'vue-agile'
 Vue.use(VueAgile)
+import VueGoodTablePlugin from 'vue-good-table';
+Vue.use(VueGoodTablePlugin)
+
+
 
 /**
  * The following block of code may be used to automatically register your

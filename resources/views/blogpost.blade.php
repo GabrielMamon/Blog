@@ -70,7 +70,7 @@
 
             </div>
         </div>
-        @include('sidebar')
+        @include('layouts/sidebar')
 
 
     </div>

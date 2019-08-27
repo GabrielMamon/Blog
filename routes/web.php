@@ -21,22 +21,17 @@ Route::get('/category/{category}', 'HomeController@postCategory');
 Route::post('/postSearch','HomeController@prosSearch');
 Route::get('/search/{search}','HomeController@postSearch');
 
-
-/*
-
-Route::get('/search/{search}', 'HomeController@index')->name('home');
-*/
 Auth::routes();
 Route::get('/post/{title}','HomeController@blogPost');
+Route::get('/comment/{post}','HomeController@getComments');
+Route::post('/comment/addcomment','CommentController@postComment');
+
+Route::get('/dashboard','PostController@index');
 Route::get('/create', 'PostController@createPost')->name('create');
 Route::get('/delete/{slug}','PostController@deletePost');
 Route::get('/edit/{slug}','PostController@editPost');
-
 Route::post('/createSubmit','PostController@Create');
 Route::post('/Edit','PostController@Edit');
-
-Route::get('/comment/{post}','HomeController@getComments');
-Route::post('/comment/addcomment','CommentController@postComment');
 
 
 

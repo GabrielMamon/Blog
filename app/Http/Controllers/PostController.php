@@ -15,6 +15,10 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(){
+        return view('dashboard')->with('title','Dashboard');
+    }
+
     public function createPost(){
         if(Auth::id()==1){ //Only id = 1 can post
             return view('create')->with('title','Create');

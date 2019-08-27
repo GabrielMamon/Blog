@@ -117,7 +117,7 @@ class HomeController extends Controller
     }
 
     private function getPost(){
-
+        //DB::enableQueryLog();
         $posts = DB::table('post AS p')
             ->join('users AS u','u.id','=','p.author')
             ->join('comments AS c','c.post_id','=','p.title_slugged','left outer')
@@ -125,8 +125,9 @@ class HomeController extends Controller
             ->groupBy('p.id')
             ->orderBy('p.created_at','DESC')
             ->paginate(3);
-
+        //dd(DB::getQueryLog());
         $posts = $this->shortenText($posts);
+
 
         return $posts;
     }

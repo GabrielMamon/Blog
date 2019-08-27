@@ -75,7 +75,7 @@
             @endif
         </div>
 
-        @include('sidebar')
+        @include('layouts/sidebar')
     </div>
 </div>
 @endsection
