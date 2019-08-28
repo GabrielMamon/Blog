@@ -31,10 +31,12 @@ Route::get('/create', 'PostController@createPost')->name('create');
 Route::get('/delete/{slug}','PostController@deletePost');
 Route::get('/edit/{slug}','PostController@editPost');
 Route::post('/createSubmit','PostController@Create');
-Route::post('/Edit','PostController@Edit');
+
 
 Route::get('/api/listcomment/{post}','HomeController@getComments');
 Route::get('/api/listpost','HomeController@authorGetPost');
+
+Route::post('/api/listpost/edit_feature','PostController@editFeature');
 
 
 

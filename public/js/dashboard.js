@@ -4,9 +4,15 @@ new Vue({
   data: {
     columns: [
         {
+            label: '',
+            field: 'actions',
+            tdClass: 'table-items icons',
+        },
+        {
             label: 'Banner',
             field: 'imagepath',
             sortable: false,
+            tdClass: 'table-img',
         },
         {
             label: 'Post',
@@ -23,7 +29,7 @@ new Vue({
             tdClass: 'table-items',
         },
         {
-            label: 'Date Posted',
+            label: 'Posted on',
             field: 'dateposted',
             type: 'date',
             dateInputFormat: 'yyyy-MM-dd HH:mm:ss',
@@ -35,7 +41,14 @@ new Vue({
   },
   methods: {
     updateFeature:function(title_slug){
-        alert(title_slug);
+        axios.post('/api/listpost/edit_feature',{
+            PostTitleSlug: title_slug,
+
+        }).then((response)=>{
+
+        }).catch((error)=>{
+            console.log(error.response.data)
+        });
     },
   },
   mounted() {

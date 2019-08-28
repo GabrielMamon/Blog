@@ -20,12 +20,17 @@
                       }" :sort-options="{
                         enabled: true,
                         initialSortBy: {field: 'dateposted', type: 'desc'}
-                      }">>
+                      }">
+                <div slot="table-actions" style="margin-right: 10px;">
+                    <button class="btn btn-primary" style="padding-left: 1.5rem;padding-right: 1.5rem;">Create Post</button>
+                </div>
                 <template slot="table-row" slot-scope="props">
+                    <span v-if="props.column.field == 'actions'">
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                    </span>
                     <span v-if="props.column.field == 'imagepath'">
-                        <div class="table-img">
-                            <img :src="'/images/'+props.row.imagepath">
-                        </div>
+                        <img :src="'/images/'+props.row.imagepath">
                     </span>
                     <span v-else-if="props.column.field == 'title'">
                         <p class="table-title">@{{props.row.title}}</p>
@@ -34,12 +39,12 @@
                     <span v-else-if="props.column.field == 'featured'">
                         <div class="custom-control custom-switch" v-if="props.row.featured == 0">
                             <input type="checkbox" class="custom-control-input" :id="'customSwitch'+props.index" @click="updateFeature(props.row.title_slugged)">
-                            <label class="custom-control-label" :for="'customSwitch'+props.index">No</label>
+                            <label class="custom-control-label" :for="'customSwitch'+props.index"></label>
                         </div>
 
                         <div class="custom-control custom-switch" v-else>
                             <input type="checkbox" class="custom-control-input" :id="'customSwitch'+props.index" @click="updateFeature(props.row.title_slugged)" checked>
-                        <label class="custom-control-label" :for="'customSwitch'+props.index">Yes</label>
+                        <label class="custom-control-label" :for="'customSwitch'+props.index"></label>
                         </div>
                     </span>
                     <span v-else>

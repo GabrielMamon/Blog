@@ -1,4 +1,8 @@
-.table-img > img {
+.table-img {
+  vertical-align: middle  !important;
+}
+
+.table-img > span > img {
   max-height: 100px;
   width: 100%;
   -o-object-fit: cover;
@@ -17,5 +21,10 @@
   text-align: center;
   font-size: 1rem;
   vertical-align: middle  !important;
+}
+
+.table-items i {
+  font-size: .75rem;
+  width: 12px;
 }
 /*# sourceMappingURL=styles2.css.map */

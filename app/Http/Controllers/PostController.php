@@ -104,20 +104,12 @@ class PostController extends Controller
 
     }
 
-    public function Edit(Request $request){
+    public function editFeature(Request $request){
         if($request->isMethod('post')){
 
-            DB::table('post')
-            ->where('title_slugged','=',$request->input('InputPostSlug'))
-            ->update(
-                ['category'=>$request->input('InputPostCategory')],
-                ['content'=>$request->input('InputPostContent')]
-            );
-            return redirect('/') ->with('msgtype', 'alert-success')
-                                            ->with('msgtitle', 'Post Updated!')
-                                            ->with('msgcontent','The post has been updated.');
-        }else{
-            redirect('/');
+            DB::update('UPDATE post SET featured = CASE WHEN featured = 0 THEN 1 ELSE 0 END
+                    WHERE `title_slugged` = "'.$request->PostTitleSlug.'"');
+
         }
     }
 
