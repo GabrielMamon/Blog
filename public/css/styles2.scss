@@ -1,6 +1,7 @@
 .table-img > img{
-    max-height: 150px;
+    max-height: 100px;
     width: 100%;
+    object-fit: cover;
 }
 
 .table-title{
@@ -9,4 +10,10 @@
 
 .table-content{
     font-size: 0.8rem;
+}
+
+.table-items{
+    text-align: center;
+    font-size: 1rem;
+    vertical-align: middle  !important;
 }

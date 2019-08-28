@@ -55,7 +55,7 @@ const app = new Vue({
         },
     },
     mounted() {
-        axios.get('/comment/'+this.paramid)
+        axios.get('/api/listcomment/'+this.paramid)
         .then(response => (
             this.sampledata = response.data
             ))

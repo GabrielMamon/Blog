@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Auth;
 use DB;
 
+
 class PostController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -58,7 +61,7 @@ class PostController extends Controller
             ->where('post.title_slugged','=',$postID)
             ->get();
             //dd(DB::getQueryLog());
-            return $posts;
+        return $posts;
     }
 
     public function Create(Request $request){

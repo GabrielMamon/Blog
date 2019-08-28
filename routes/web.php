@@ -23,7 +23,7 @@ Route::get('/search/{search}','HomeController@postSearch');
 
 Auth::routes();
 Route::get('/post/{title}','HomeController@blogPost');
-Route::get('/comment/{post}','HomeController@getComments');
+
 Route::post('/comment/addcomment','CommentController@postComment');
 
 Route::get('/dashboard','PostController@index');
@@ -32,6 +32,9 @@ Route::get('/delete/{slug}','PostController@deletePost');
 Route::get('/edit/{slug}','PostController@editPost');
 Route::post('/createSubmit','PostController@Create');
 Route::post('/Edit','PostController@Edit');
+
+Route::get('/api/listcomment/{post}','HomeController@getComments');
+Route::get('/api/listpost','HomeController@authorGetPost');
 
 
 

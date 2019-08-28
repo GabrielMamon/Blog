@@ -22,17 +22,28 @@
                         initialSortBy: {field: 'dateposted', type: 'desc'}
                       }">>
                 <template slot="table-row" slot-scope="props">
-                    <span v-if="props.column.field == 'banner'">
+                    <span v-if="props.column.field == 'imagepath'">
                         <div class="table-img">
-                            <img :src="'/images/'+props.row.banner">
+                            <img :src="'/images/'+props.row.imagepath">
                         </div>
                     </span>
-                    <span v-else-if="props.column.field == 'post'">
-                        <p class="table-title">@{{props.row.post}}</p>
-                        <p class="table-content">@{{ props.row.content }}[...]</p>
+                    <span v-else-if="props.column.field == 'title'">
+                        <p class="table-title">@{{props.row.title}}</p>
+                        <p class="table-content">@{{ props.row.content }}- <a :href="'/post/'+props.row.title_slugged">See more</a></p>
+                    </span>
+                    <span v-else-if="props.column.field == 'featured'">
+                        <div class="custom-control custom-switch" v-if="props.row.featured == 0">
+                            <input type="checkbox" class="custom-control-input" :id="'customSwitch'+props.index" @click="updateFeature(props.row.title_slugged)">
+                            <label class="custom-control-label" :for="'customSwitch'+props.index">No</label>
+                        </div>
+
+                        <div class="custom-control custom-switch" v-else>
+                            <input type="checkbox" class="custom-control-input" :id="'customSwitch'+props.index" @click="updateFeature(props.row.title_slugged)" checked>
+                        <label class="custom-control-label" :for="'customSwitch'+props.index">Yes</label>
+                        </div>
                     </span>
                     <span v-else>
-                        @{{props.formattedRow[props.column.field]}}
+                       @{{props.formattedRow[props.column.field]}}
                     </span>
                 </template>
             </vue-good-table>

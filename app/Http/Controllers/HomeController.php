@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -114,6 +115,31 @@ class HomeController extends Controller
                         ->with('categories',$categories)
                         ->with('recent',$recentdata)
                         ->with('searchval',$searchItem);
+    }
+
+    public function getComments($postID){
+        //DB::enableQueryLog();
+        $comment = DB::table('comments')
+        ->join('users','users.id','=','comments.user_id')
+        ->join('post','post.title_slugged','=','comments.post_id')
+        ->selectRaw('users.name ,comments.comment, DATE_FORMAT(DATE(comments.created_at),\'%b %e %Y\') AS created,comments.updated_at')
+        ->where('post.title_slugged','=',$postID)
+        ->orderBy('comments.created_at','DESC')
+        ->get();
+        //dd(DB::getQueryLog());
+
+        return $comment;
+    }
+
+    public function authorGetPost(){
+        //DB::enableQueryLog();
+        $posts = DB::table('post')
+            ->selectRaw('id,title,title_slugged,imagepath,content,category,featured,created_at as dateposted')
+            ->where('author','=',Auth::id())
+            ->get();
+            //dd(DB::getQueryLog());
+        $posts = $this->shortenText($posts);
+        return $posts;
     }
 
     private function getPost(){
@@ -248,19 +274,7 @@ class HomeController extends Controller
         return $datas;
     }
 
-    public function getComments($postID){
-        //DB::enableQueryLog();
-        $comment = DB::table('comments')
-        ->join('users','users.id','=','comments.user_id')
-        ->join('post','post.title_slugged','=','comments.post_id')
-        ->selectRaw('users.name ,comments.comment, DATE_FORMAT(DATE(comments.created_at),\'%b %e %Y\') AS created,comments.updated_at')
-        ->where('post.title_slugged','=',$postID)
-        ->orderBy('comments.created_at','DESC')
-        ->get();
-        //dd(DB::getQueryLog());
 
-        return $comment;
-    }
 
 
 

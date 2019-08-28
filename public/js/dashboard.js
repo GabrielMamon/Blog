@@ -5,32 +5,44 @@ new Vue({
     columns: [
         {
             label: 'Banner',
-            field: 'banner',
+            field: 'imagepath',
+            sortable: false,
         },
         {
             label: 'Post',
-            field: 'post',
+            field: 'title',
         },
         {
             label: 'Category',
             field: 'category',
+            tdClass: 'table-items',
         },
         {
             label: 'Featured',
             field: 'featured',
+            tdClass: 'table-items',
         },
         {
             label: 'Date Posted',
             field: 'dateposted',
+            type: 'date',
+            dateInputFormat: 'yyyy-MM-dd HH:mm:ss',
+            dateOutputFormat: 'MMM dd yyyy, haa',
+            tdClass: 'table-items',
         },
       ],
-    rows: [
-        { banner:"uploaded/cover/cyberpunk-2077_1562328803.jpg", post: 'Cyberpunk 2077',content:'Cyberpunk 2077 is an upcoming role-playing video game developed and published by CD Projekt, releasing for Microsoft Windows, PlayStation 4, and Xbox',
-          category: 'Games',featured: 0, dateposted:'2019-07-05 20:13:23' },
-        ],
-
-  },methods: {
-
+    rows: [],
+  },
+  methods: {
+    updateFeature:function(title_slug){
+        alert(title_slug);
+    },
+  },
+  mounted() {
+      axios.get('/api/listpost').then(response => {
+        console.log(response.data);
+        this.rows = response.data;
+    });
   },
 });
 
