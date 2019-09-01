@@ -8,7 +8,9 @@
 
 @endsection
 <div class="container">
-
+    <div id="app">
+        <posteditor></posteditor>
+    </div>
     <div id="body" class="row">
         <div class="col-md-12">
             <vue-good-table :columns="columns" :rows="rows" :search-options="{
@@ -38,12 +40,12 @@
                     </span>
                     <span v-else-if="props.column.field == 'featured'">
                         <div class="custom-control custom-switch" v-if="props.row.featured == 0">
-                            <input type="checkbox" class="custom-control-input" :id="'customSwitch'+props.index" @click="updateFeature(props.row.title_slugged)">
+                            <input type="checkbox" class="custom-control-input" :id="'customSwitch'+props.index" :disabled="!lcheckenable"@click="updateFeature(props.row.title_slugged)">
                             <label class="custom-control-label" :for="'customSwitch'+props.index"></label>
                         </div>
 
                         <div class="custom-control custom-switch" v-else>
-                            <input type="checkbox" class="custom-control-input" :id="'customSwitch'+props.index" @click="updateFeature(props.row.title_slugged)" checked>
+                            <input type="checkbox" class="custom-control-input" :id="'customSwitch'+props.index" :disabled="!lcheckenable" @click="updateFeature(props.row.title_slugged)" checked>
                         <label class="custom-control-label" :for="'customSwitch'+props.index"></label>
                         </div>
                     </span>

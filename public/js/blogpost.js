@@ -22,7 +22,7 @@ Vue.component('comment-card',{
 })
 
 
-const app = new Vue({
+const blog = new Vue({
     el: '#body',
     data: {
         commentText:"",
@@ -55,6 +55,7 @@ const app = new Vue({
         },
     },
     mounted() {
+        setTimeout(() => this.scrollFix(this.$route.hash), 1),
         axios.get('/api/listcomment/'+this.paramid)
         .then(response => (
             this.sampledata = response.data

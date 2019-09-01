@@ -32,13 +32,17 @@
             <p class="section-head c1"><span>Featured Articles</span></p>
             <div></div>
             <agile :dots="false" :speed="800" :autoplay-speed="5000">
-                <div class="slide-card">
-                    <img class="slide" src="https://images.unsplash.com/photo-1506260408121-e353d10b87c7?ixlib=rb-1.2.1&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb&amp;w=1600&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjE0NTg5fQ"/>
-                    <div>
-                        <h4>Caption Title of Post</h4>
-                        <h6>Author - Jul 9 2010</h6>
+                    @foreach ($carousel as $slide)
+                    <a href="/post/{{$slide->title_slugged}}">
+                    <div class="slide-card">
+                        <img class="slide" src="{{ asset('images/'.$slide->imagepath.'') }}"/>
+                        <div>
+                            <h4>{{$slide->title}}</h4>
+                            <h6>{{$slide->name}} - {{$slide->created}}</h6>
+                        </div>
                     </div>
-                </div>
+                    </a>
+                @endforeach
                 <template slot="prevButton"><i class="fa fa-chevron-left"></i></template>
                 <template slot="nextButton"><i class="fa fa-chevron-right"></i></template>
             </agile>

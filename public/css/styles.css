@@ -328,6 +328,7 @@ div.navlink div a {
 
 .slide-card img, div div > a > div.slide-card-inv img {
   width: 100%;
+  height: 456.25px;
   -webkit-transition: -webkit-transform 1s ease;
   transition: -webkit-transform 1s ease;
   transition: transform 1s ease;
@@ -362,5 +363,28 @@ div div:nth-child(2) > a > div.slide-card-inv {
   div div:nth-child(2) > a > div.slide-card-inv {
     margin-top: 5px;
   }
+}
+
+.blog-head {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.blog-head div:nth-child(1) {
+  margin-bottom: 3px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.blog-head div:nth-child(2) {
+  font-size: 28px;
+  font-weight: bold;
+  white-space: 2px;
+}
+
+.blog-head div:nth-child(3) {
+  font-size: 14px;
+  color: #919191;
 }
 /*# sourceMappingURL=styles.css.map */

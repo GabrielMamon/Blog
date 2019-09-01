@@ -57,7 +57,7 @@ Vue.component('side-card',{
     `
 });
 
-const app = new Vue({
+const home = new Vue({
     el: '#body',
     data: {
         message: 'Hello Vue!'

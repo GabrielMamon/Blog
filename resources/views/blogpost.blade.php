@@ -11,16 +11,20 @@
             <div class="row">
                 <div class="col-md-12">
                     @foreach ($post as $item)
-
-
-                    <h2>{{$item->title}}</h2>
-                    <hr>
-                    <img src="{{ asset('images/'.$item->imagepath.'') }}" style="max-width: 100%;">
-                    <hr>
-                    <p>
+                    <div class="blog-head">
+                        <div><a href="/category/{{ $item->category }}">{{ $item->category }}</a></div>
+                        <div>{{$item->title}}</div>
+                        <div><a href="/author/{{ $item->name }}">{{ $item->name }}</a> - {{ $item->created }} - <a href="#comments">{{ $item->comment}}
+                        <span v-if="{{ $item->comment}} > 1"> comments </span>
+                        <span v-else> comment</span>
+                        </div></a>
+                    </div>
+                    <div class="blog-img">
+                        <img src="{{ asset('images/'.$item->imagepath.'') }}" style="max-width: 100%;">
+                    </div>
+                    <div class="blog-cont">
                         {!!$item->content!!}
-                    </p>
-
+                    </div>
                     @endforeach
                 </div>
             </div>
@@ -49,7 +53,7 @@
         <p class="section-head c2"><span> @{{commentnum}} comment/s</span></p>
             <div></div>
 
-            <div class="row">
+            <div id="comments" class="row">
 
                 <comment-card v-bind:comments="sampledata"></comment-card>
 

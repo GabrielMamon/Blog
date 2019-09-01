@@ -1,7 +1,7 @@
-
-new Vue({
+const dash = new Vue({
   el: "#body",
   data: {
+    lcheckenable: true,
     columns: [
         {
             label: '',
@@ -41,19 +41,20 @@ new Vue({
   },
   methods: {
     updateFeature:function(title_slug){
+        this.lcheckenable = false;
         axios.post('/api/listpost/edit_feature',{
             PostTitleSlug: title_slug,
-
         }).then((response)=>{
-
+            this.lcheckenable = true;
         }).catch((error)=>{
             console.log(error.response.data)
         });
     },
+  },components: {
+
   },
   mounted() {
       axios.get('/api/listpost').then(response => {
-        console.log(response.data);
         this.rows = response.data;
     });
   },

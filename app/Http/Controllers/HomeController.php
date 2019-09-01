@@ -30,12 +30,14 @@ class HomeController extends Controller
         $recentdata = $this->getRecent();
         $categories = $this->getCategoryList();
         $trenddata = $this->getTopPosts();
+        $featureddata = $this->getCarousel();
 
         return view('home')->with('posts',$postdata)
                         ->with('recent',$recentdata)
                         ->with('categories',$categories)
                         ->with('title','Home')
-                        ->with('items',$trenddata);
+                        ->with('items',$trenddata)
+                        ->with('carousel',$featureddata);
     }
 
     public function blogPost($postID){
@@ -160,10 +162,12 @@ class HomeController extends Controller
 
     private function showPost($postID){
         //DB::enableQueryLog();
-        $posts = DB::table('post')
-            ->join('users','users.id','=','post.author')
-            ->selectRaw('users.name ,post.id,post.title,post.title_slugged, post.imagepath,post.content,post.category,DATE_FORMAT(DATE(post.created_at),\'%b %e %Y\') AS created')
-            ->where('post.title_slugged','=',$postID)
+        $posts = DB::table('post as p')
+            ->join('users as u','u.id','=','p.author')
+            ->join('comments AS c','c.post_id','=','p.title_slugged','left outer')
+            ->selectRaw('u.name ,p.id,p.title,p.title_slugged, p.imagepath,p.content,p.category,COUNT(c.comment) AS comment,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
+            ->where('p.title_slugged','=',$postID)
+            ->groupBy('p.id')
             ->get();
         //dd(DB::getQueryLog());
         return $posts;
@@ -171,16 +175,23 @@ class HomeController extends Controller
 
     private function getTopPosts(){
         $posts = DB::table('post AS p')
-            ->join('users AS u','u.id','=','p.author')
-            ->join('comments AS c','c.post_id','=','p.title_slugged','left outer')
-            ->selectRaw('u.name ,p.id,p.title,p.title_slugged, p.imagepath,p.content,p.category,COUNT(c.comment) AS comment,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
+        ->join('users AS u','u.id','=','p.author')
+        ->join('comments AS c','c.post_id','=','p.title_slugged','left outer')
+            ->selectRaw('u.name,p.title,p.title_slugged,p.imagepath,COUNT(c.comment) AS comment,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
             ->groupBy('p.id')
             ->orderBy('comment','DESC')
             ->limit(2)
             ->get();
 
-        $posts = $this->shortenText($posts);
+        return $posts;
+    }
 
+    private function getCarousel(){
+        $posts = DB::table('post AS p')
+            ->join('users AS u','u.id','=','p.author')
+            ->selectRaw('u.name,p.title,p.title_slugged,p.imagepath,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
+            ->where('featured','=','1')
+            ->get();
         return $posts;
     }
 
@@ -214,16 +225,17 @@ class HomeController extends Controller
             ->orderBy('post.created_at','desc')
             ->limit(10)
             ->get();
-
         return $posts;
     }
 
     private function getAuthor($authorName){
         //DB::enableQueryLog();
         $posts = DB::table('post as p')
-            ->join('users as u','u.id','=','p.author')
-            ->selectRaw('u.name,p.id,p.title,p.title_slugged, p.imagepath,p.content,p.category,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
-            ->where('u.name','=',$authorName)
+        ->join('users as u','u.id','=','p.author')
+        ->join('comments AS c','c.post_id','=','p.title_slugged','left outer')
+        ->selectRaw('u.name ,p.id,p.title,p.title_slugged, p.imagepath,p.content,p.category,COUNT(c.comment) AS comment,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
+        ->where('u.name','=',$authorName)
+        ->groupBy('p.id')
             ->orderBy('p.created_at','DESC')
             ->paginate(3);
         //dd(DB::getQueryLog());
@@ -234,11 +246,13 @@ class HomeController extends Controller
 
     private function getCategory($categoryName){
         //DB::enableQueryLog();
-        $posts = DB::table('post')
-            ->join('users','users.id','=','post.author')
-            ->selectRaw('users.name,post.id,post.title,post.title_slugged, post.imagepath,post.content,post.category,DATE_FORMAT(DATE(post.created_at),\'%b %e %Y\') AS created')
-            ->where('post.category','=',$categoryName)
-            ->orderBy('post.created_at','DESC')
+        $posts = DB::table('post as p')
+        ->join('users as u','u.id','=','p.author')
+        ->join('comments AS c','c.post_id','=','p.title_slugged','left outer')
+        ->selectRaw('u.name ,p.id,p.title,p.title_slugged, p.imagepath,p.content,p.category,COUNT(c.comment) AS comment,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
+        ->where('p.category','=',$categoryName)
+        ->groupBy('p.id')
+            ->orderBy('p.created_at','DESC')
             ->paginate(3);
         //dd(DB::getQueryLog());
 
@@ -248,15 +262,17 @@ class HomeController extends Controller
     private function getSearch($searchItem){
 
         //DB::enableQueryLog();
-        $posts = DB::table('post')
-            ->join('users','users.id','=','post.author')
-            ->selectRaw('users.name,post.id,post.title,post.title_slugged, post.imagepath,post.content,post.category,DATE_FORMAT(DATE(post.created_at),\'%b %e %Y\') AS created')
-            ->whereRaw('match (post.title, post.content) against (\''.$searchItem.'\' in natural language mode)')
-            ->orwhere('users.name','=',$searchItem)
-            ->orwhere('post.category','=',$searchItem)
-            ->orderByRaw('case when post.title then 1
-                                when users.name then 2
-                                when post.category then 3
+        $posts = DB::table('post as p')
+        ->join('users as u','u.id','=','p.author')
+        ->join('comments AS c','c.post_id','=','p.title_slugged','left outer')
+        ->selectRaw('u.name ,p.id,p.title,p.title_slugged, p.imagepath,p.content,p.category,COUNT(c.comment) AS comment,DATE_FORMAT(DATE(p.created_at),\'%b %e %Y\') AS created')
+        ->whereRaw('match (p.title, p.content) against (\''.$searchItem.'\' in natural language mode)')
+            ->orwhere('u.name','=',$searchItem)
+            ->orwhere('p.category','=',$searchItem)
+            ->groupBy('p.id')
+            ->orderByRaw('case when p.title then 1
+                                when u.name then 2
+                                when p.category then 3
                           end')
             ->paginate(3);
         //dd(DB::getQueryLog());
